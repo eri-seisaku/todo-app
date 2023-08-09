@@ -1,0 +1,94 @@
+{% extends "app.html.twig" %}
+
+{% set title = 'Todo' %}
+{% block content %}
+  <section>
+    <div class="container py-5 vh-100">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12">
+        {# alert start #}
+        {% if message is defined and message is not empty
+           or err_message is defined and err_message is not empty
+        %}
+        {# /alert 条件 #}
+        <div class="alert alert-secondary" role="alert">
+          <ul>
+            {% if err_message is defined %}
+              <li>{{ err_message }}</li>
+            {% endif %}
+            {% if message is defined %}
+              <li>{{ message }}</li>
+            {% endif %}
+          </ul>
+        </div>
+        {% endif %}
+        {# alert end #}
+          <div class="card p-3 shadow-2-strong">
+            <div class="card-bodyr">
+            {# Head content start #}
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                {# 検索窓 #}
+                <input type="search" class="form-control w-50 search use_icon" name="search" placeholder="&#xf002;">
+                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                  <button type="button" onclick="location.href='/post.php'" class="btn btn-outline-dark">&nbsp;Add&nbsp;</button>
+                  {# 一括削除機能 #}
+                  <form action="?action=clear" method="post">
+                    <button type="submit" class="btn btn-dark delete clear">Clear</button>
+                    <input type="hidden" name="token" value="{{ token|e }}">
+                  </form>
+                </div>
+              </div>
+            {# /Head content start #}
+            {# Main contents start #}
+            <table class="table">
+              <thead>
+                  <tr>
+                    <th scope="col">Check</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody id="todoList">
+                {% for todo in todos %}
+                  <tr class="todoItem">
+                    <td>
+                      <form action="?action=toggle" method="post">
+                        <input type="checkbox" {{ todo.is_done is same as(1) ? 'checked' : '' }} class="form-check-input me-1">
+                        <input type="hidden" name="id" value="{{ todo.id|e }}">
+                        <input type="hidden" name="token" value="{{ token|e }}">
+                      </form>
+                    </td>
+                    <td class="{{ todo.is_done is same as(1) ? 'done' : '' }}">
+                      {{ todo.title|default('')|e }}
+                    </td>
+                    <td class="{{ todo.is_done is same as(1) ? 'done' : '' }}">
+                      {{ todo.content|default('')|e }}
+                    </td>
+                    <td>
+                      <a href="edit.php?id={{ todo.id }}" class="link-dark">
+                        ID:{{ todo.id }}
+                      </a>
+                    </td>
+                    <td>
+                      <form action="?action=delete" method="post">
+                        <button type="submit" class="btn-close delete" aria-label="Close"></button>
+                        <input type="hidden" name="id" value="{{ todo.id|e }}">
+                        <input type="hidden" name="token" value="{{ token|e }}">
+                      </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {# /Main contents start #}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+

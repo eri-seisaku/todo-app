@@ -1,0 +1,31 @@
+{# https://getbootstrap.jp/docs/5.0/examples/navbars/# #}
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+{# <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> #}
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Todo</a>
+  
+        <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link {{ current_page is same as('Home') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ current_page is same as('List') ? 'active' : '' }}" href="/list.php">List</a>
+          </li>
+        </ul>
+      </div>
+
+    <a class="nav-link dropdown-toggle text-secondary" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="../image/icon/{{ file_name }}" alt="icon" width="32" height="32" class="object-fit-cover rounded-circle me-2" loading="lazy">
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark end-0" aria-labelledby="navbarDarkDropdownMenuLink">
+      <li><a class="dropdown-item" href="/profile.php">Profile</a></li>
+      <li>
+        <form action="index.php?action=logout" method="post" class="w-100">
+          <input type="hidden" name="token" value="{{ token|e }}">
+          <span role="button" class="dropdown-item logout">Logout</span>
+        </form>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,81 @@
+{# https://stackoverflow.com/questions/16019887/include-twig-with-multiple-parameters #}
+{% extends "app.html.twig" %}
+
+{% block content %}
+  <section>
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        {# alert start #}
+        {% if message is defined and message is not empty
+           or err_message is defined and err_message is not empty
+           or validate_message is defined and validate_message is not empty
+        %}
+        {# /alert 条件 #}
+        <div class="alert alert-secondary" role="alert">
+          <ul>
+            {% if err_message is defined %}
+              <li>{{ err_message }}</li>
+            {% endif %}
+            {% if validate_message is defined %}
+              {% for msg in validate_message %}
+                <li>{{ msg }}</li>
+              {% endfor %}
+            {% endif %}
+            {% if message is defined %}
+              <li>{{ message }}</li>
+            {% endif %}
+          </ul>
+        </div>
+        {% endif %}
+        {# alert end #}
+          <div class="card shadow-2-strong">
+            <div class="card-body p-5 text-center">
+
+              <h3 class="mb-5">{{ title }}</h3>
+
+              <form action="{{ action }}" method="post">
+
+                {# email #}
+                <div class="form-outline mb-4">
+                {% if formType == 'login' %}
+                  <input type="email" name="email" id="email" class="form-control form-control-lg" />
+                {% elseif formType == 'signup' %}
+                  <input type="email" name="email" id="email" value="{{ post_data.email }}" class="form-control form-control-lg" />
+                {% endif %}
+                  <label class="form-label" for="email">Email</label>
+                </div>
+
+                {# password #}
+                <div class="form-outline mb-4">
+                  <input type="password" name="password" id="password" class="form-control form-control-lg" />
+                  <label class="form-label" for="password">Password</label>
+                </div>
+
+                {# confirm_password / signup #}
+                {% if formType == 'signup' %}
+                <div class="form-outline mb-4">
+                  <input type="password" name="confirm_password" id="confirm_password" class="form-control form-control-lg" />
+                  <label class="form-label" for="confirm_password">Confirm Password</label>
+                </div>
+                {% endif %}
+
+                {# token #}
+                <input type="hidden" name="token" value="{{ token|e }}">
+
+                <button class="btn btn-outline-dark btn-lg btn-block" type="submit">{{ title }}</button>
+              </form>
+
+              <a href="{{ link }}" class="link-dark d-block mt-4">{{ linkText }}</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{# ナビゲーションバーとフッターの表示を削除するため、以下のブロックを空にします #}
+{% block nav %}{% endblock %}
+{% block footer %}{% endblock %}

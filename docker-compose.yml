@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  db:
+    build: ./mysql
+    environment:
+      TZ: "Asia/Tokyo"
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: todo_db
+      MYSQL_USER: todo_user
+      MYSQL_PASSWORD: todo_pass
+    volumes:
+      - db-data:/var/lib/mysql
+
+  php:
+    build: ./php
+    depends_on:
+      - db
+    ports:
+      - 8888:8000  # http://localhost:8888
+    volumes:
+      - ./work:/work
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=rootpass
+    links:
+      - db
+    ports:
+      - 4444:80  # http://localhost:4444
+
+volumes:
+  db-data:

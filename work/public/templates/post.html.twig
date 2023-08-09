@@ -1,0 +1,12 @@
+{# login.html.twig #}
+
+{# 参考: https://forsmile.jp/twig/1702/ #}
+{% include 'todoForm.html.twig' with {
+    'title' : 'Post',
+    'action': '?action=add',
+    'formType': 'post',
+    'token': token,
+    'user_id': user_id,
+    'errr_message': err_message,
+} %}
+

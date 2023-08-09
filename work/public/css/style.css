@@ -1,0 +1,57 @@
+/* list-styleを削除 */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* checkしたら色を薄くして取り消し線を */
+.done {
+  text-decoration: line-through;
+  color: #ccc;
+}
+/* input内にアイコン表示する */
+.use_icon {
+	display: inline-block;
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+/* profile (+)アイコン位置微調整 */
+.p-2 {
+  margin-top: 10%;
+  margin-left: -10%;
+}
+div.position-relative {
+  display: inline;
+}
+/* checkbox active color変更 */
+.form-check-input:checked {
+  background-color: #323232;
+  border-color: #323232;
+}
+/* checkboxを大きく */
+input[type="checkbox"] {
+  width: 1.5em;
+  height: 1.5em;
+}
+/* dropdown-menuの位置調整 */
+.dropdown-menu[data-bs-popper] {
+  left: auto;
+}
+/* Topページのbuttonの形調整 */
+button.btn.btn-dark.delete.clear {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+/* profile img 比率調整 bootstrapのObject fitが効かなかったため */
+.object-fit-cover {
+  object-fit: cover;
+}
+/* profile img サイズ */
+.custom-size {
+  width: 200px;
+  height: 200px;
+}

@@ -1,0 +1,21 @@
+CREATE TABLE todos (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  is_done TINYINT(1) DEFAULT 0,
+  title VARCHAR(50),
+  content VARCHAR(255),
+  user_id INT UNSIGNED NOT NULL,
+  time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE users (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  delete_flg TINYINT(1) DEFAULT 0,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  icon_filename VARCHAR(255) DEFAULT 'default_icon.png',
+);
+
+SELECT * FROM todos;
+SELECT * FROM users;
+
+

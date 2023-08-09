@@ -1,0 +1,13 @@
+{# login.html.twig #}
+
+{# https://forsmile.jp/twig/1702/ #}
+{% include 'authForm.html.twig' with {
+    'title' : 'Login',
+    'action': '?action=login',
+    'formType': 'login',
+    'link': '/signup.php',
+    'linkText': 'signup',
+    'token': token,
+    'message': message,
+    'errr_message': err_message,
+} %}

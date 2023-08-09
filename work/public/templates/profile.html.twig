@@ -1,0 +1,96 @@
+{% extends "app.html.twig" %}
+
+{% set title = 'Profile' %}
+
+{% block content %}
+  <section>
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        {# alert start #}
+        {% if message is defined and message is not empty
+           or err_message is defined and err_message is not empty
+           or validate_message is defined and validate_message is not empty
+        %}
+        {# alert 条件 #}
+        <div class="alert alert-secondary" role="alert">
+          <ul>
+            {% if err_message is defined %}
+              <li>{{ err_message }}</li>
+            {% endif %}
+            {% if validate_message is defined %}
+              {% for msg in validate_message %}
+                <li>{{ msg }}</li>
+              {% endfor %}
+            {% endif %}
+            {% if message is defined %}
+              <li>{{ message }}</li>
+            {% endif %}
+          </ul>
+        </div>
+        {% endif %}
+        {# /alert end #}
+          <div class="card shadow-2-strong">
+            <div class="card-body p-5 text-center">
+
+              <h3 class="mb-5">Profile</h3>
+              {# image upload form start #}
+              {# icon #}
+              <div role="button" tabindex="0" id="uploadBtn" class="position-relative">
+                {% if file_name %}
+                <img src="../image/icon/{{ file_name }}" class="object-fit-cover custom-size rounded-circle img-thumbnail mb-4" alt="ユーザーアイコン" id="icon">
+                {% else %}
+                <img src="../image/icon/default_icon.png" class="object-fit-cover custom-size rounded-circle img-thumbnail mb-4" alt="ユーザーアイコン" id="icon">
+                {% endif %}
+                <span class="position-absolute top-100 translate-middle badge border border-light rounded-circle bg-dark p-2">&#65291;</span>
+              </div>
+              <form action="profile.php" method="post" enctype="multipart/form-data" id="fileForm">
+                <input type="hidden" name="token" value="{{ token|e }}">
+                <input type="file" name="image" id="fileInput" style="display: none;">
+              </form>
+              {# /image upload form end #}
+              {# profile update form start #}
+              <form action="?action=update" method="post">
+                {# email #}
+                {% if email is not empty %}
+                  <div class="form-outline mb-2">
+                    <input type="email" name="email" id="email" value="{{ email }}" class="form-control form-control-lg text-center" />
+                    <label class="form-label" for="email">Email</label>
+                  </div>
+                {% endif %}
+
+                {# new password #}
+                <div class="form-outline mb-2">
+                  <input type="password" name="new_password" id="new_password" class="form-control form-control-lg" />
+                  <label class="form-label" for="new_password">New Password</label>
+                </div>
+
+                {# confirm password #}
+                <div class="form-outline mb-2">
+                  <input type="password" name="confirm_password" id="confirm_password" class="form-control form-control-lg" />
+                  <label class="form-label" for="confirm_password">Confirm Password</label>
+                </div>
+
+                {# token #}
+                <input type="hidden" name="token" value="{{ token|e }}">
+
+                <button class="btn btn-outline-dark btn-lg btn-block mb-4" type="submit">submit</button>
+              </form>
+              {# /profile update form end #}
+              {# acount delete form start #}
+              <form action="?action=delete" method="post">
+                <input type="hidden" name="token" value="{{ token|e }}">
+                <button class="btn btn-dark btn-lg btn-block delete" type="submit">delete acount</button>
+              </form>
+              {# /acount delete form end #}
+              <a href="/" class="link-dark d-block mt-4">Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/upload.js"></script>
+{% endblock %}
+
