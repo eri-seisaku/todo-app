@@ -33,7 +33,7 @@ git clone https://github.com/eri-seisaku/todo-app.git
 ```
 docker compose build
 ```
-- dockerのインストール方法はこちらの手順で行いました。
+dockerのインストール方法はこちらの手順で行いました。
 
 [Dockerを導入しよう [Windows 10版]](https://dotinstall.com/lessons/basic_dockerdesktop_win)
 
