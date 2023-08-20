@@ -17,6 +17,8 @@ class Image
 
   public function upload($imageFile)
   {
+    Token::validate(); // トークンの確認
+
     $fileSize = $imageFile['size'];  // ファイルサイズ
     $fileName = $imageFile['name']; // ファイル名
     $fileInfo = getimagesize($imageFile['tmp_name']);
@@ -44,8 +46,8 @@ class Image
 
 
     // 保存先のディレクトリが存在しない場合は作成する
-    if (!is_dir(__DIR__ . '/public/image/icon/')) {
-      mkdir(__DIR__ . '/public/image/icon/', 0777, true);
+    if (!is_dir(__DIR__ . '/../../public/image/icon/')) {
+      mkdir(__DIR__ . '/../../public/image/icon/', 0777, true);
     }
 
     if (move_uploaded_file($imageFile['tmp_name'], $destination)) {
